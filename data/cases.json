@@ -1,0 +1,69 @@
+{
+  "_说明": "在这里添加你的婚礼案例图片。只需要把图片文件放到对应的文件夹，然后在这里添加一条记录即可。",
+  "_格式说明": {
+    "category": "案例分类（新中式/韩式/森系/户外/草坪/室内/目的地/小众）",
+    "title": "案例标题",
+    "image": "图片路径，格式为 images/cases/分类名/文件名.jpg",
+    "price": "价格信息",
+    "location": "举办城市"
+  },
+
+  "cases": [
+    {
+      "category": "新中式",
+      "title": "锦绣华章·新中式婚礼",
+      "image": "images/cases/新中式/01.jpg",
+      "price": "¥88,000",
+      "location": "成都"
+    },
+    {
+      "category": "新中式",
+      "title": "凤鸣朝阳·国潮婚礼",
+      "image": "images/cases/新中式/02.jpg",
+      "price": "¥75,000",
+      "location": "重庆"
+    },
+    {
+      "category": "韩式",
+      "title": "首尔之恋·韩式轻奢婚礼",
+      "image": "images/cases/韩式/01.jpg",
+      "price": "¥100,000",
+      "location": "上海"
+    },
+    {
+      "category": "森系",
+      "title": "绿野仙踪·森林主题婚礼",
+      "image": "images/cases/森系/01.jpg",
+      "price": "¥65,000",
+      "location": "昆明"
+    },
+    {
+      "category": "户外",
+      "title": "阳光花园·户外浪漫婚礼",
+      "image": "images/cases/户外/01.jpg",
+      "price": "¥58,000",
+      "location": "杭州"
+    },
+    {
+      "category": "草坪",
+      "title": "田园诗意·草坪婚礼",
+      "image": "images/cases/草坪/01.jpg",
+      "price": "¥52,000",
+      "location": "南京"
+    },
+    {
+      "category": "室内",
+      "title": "水晶之恋·宴会厅婚礼",
+      "image": "images/cases/室内/01.jpg",
+      "price": "¥80,000",
+      "location": "北京"
+    },
+    {
+      "category": "目的地",
+      "title": "海角天涯·三亚海边婚礼",
+      "image": "images/cases/目的地/01.jpg",
+      "price": "¥120,000",
+      "location": "三亚"
+    }
+  ]
+}

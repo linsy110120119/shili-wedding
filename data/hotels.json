@@ -1,0 +1,48 @@
+{
+  "_说明": "在这里修改你的婚宴酒店信息。图片放到 images/hotels/ 文件夹即可。",
+
+  "hotels": [
+    {
+      "name": "香格里拉大酒店",
+      "city": "成都",
+      "address": "锦江区滨江东路9号",
+      "price": "3,999",
+      "image": "images/hotels/hotel-01.jpg"
+    },
+    {
+      "name": "西子湖四季酒店",
+      "city": "杭州",
+      "address": "西湖区灵隐路5号",
+      "price": "5,999",
+      "image": "images/hotels/hotel-02.jpg"
+    },
+    {
+      "name": "亚龙湾万豪度假酒店",
+      "city": "三亚",
+      "address": "吉阳区亚龙湾国家旅游度假区",
+      "price": "4,599",
+      "image": "images/hotels/hotel-03.jpg"
+    },
+    {
+      "name": "外滩华尔道夫酒店",
+      "city": "上海",
+      "address": "黄浦区中山东一路2号",
+      "price": "8,999",
+      "image": "images/hotels/hotel-04.jpg"
+    },
+    {
+      "name": "白天鹅宾馆",
+      "city": "广州",
+      "address": "荔湾区沙面南街1号",
+      "price": "3,599",
+      "image": "images/hotels/hotel-05.jpg"
+    },
+    {
+      "name": "瑰丽酒店",
+      "city": "北京",
+      "address": "朝阳区呼家楼京广中心",
+      "price": "6,999",
+      "image": "images/hotels/hotel-06.jpg"
+    }
+  ]
+}
