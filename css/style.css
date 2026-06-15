@@ -1360,3 +1360,8 @@ button { cursor: pointer; border: none; outline: none; font-family: inherit; }
   background: var(--primary-light);
   border-radius: 3px;
 }
+
+/* Lazy loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

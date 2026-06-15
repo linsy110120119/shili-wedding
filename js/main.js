@@ -114,7 +114,7 @@
     });
   }
 
-  // 渲染案例卡片
+  // 渲染案例卡片（带懒加载）
   function renderCases() {
     var grid = document.getElementById('casesGrid');
     var filtered = currentFilter === '全部'
@@ -135,18 +135,11 @@
       var card = document.createElement('div');
       card.className = 'case-card';
 
-      // 图片区域
+      // 图片区域（懒加载：先不设置背景图）
       var imgDiv = document.createElement('div');
-      imgDiv.style.cssText = 'width:100%;height:100%;background:#F5EDE6;background-size:cover;background-position:center;';
-      imgDiv.style.backgroundImage = "url('" + item.image + "')";
-
-      // 图片加载失败时的占位
-      var img = new Image();
-      img.src = item.image;
-      img.onerror = function() {
-        imgDiv.style.background = 'linear-gradient(180deg, #F5EDE6, #E0D0C0)';
-        imgDiv.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#B89B82;font-size:14px;">暂无图片<br><span style="font-size:11px;color:#ccc;">' + item.image + '</span></div>';
-      };
+      imgDiv.style.cssText = 'width:100%;height:100%;background:#F5EDE6;background-size:cover;background-position:center;transition:opacity 0.4s;';
+      imgDiv.setAttribute('data-bg', item.image);
+      imgDiv.innerHTML = '<div class="case-loading" style="display:flex;align-items:center;justify-content:center;height:100%;color:#B89B82;font-size:14px;"><div style="text-align:center;"><div style="width:30px;height:30px;border:2px solid #E8D8C8;border-top-color:#9B7C63;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 8px;"></div>加载中...</div></div>';
 
       // 悬浮信息层
       var overlay = document.createElement('div');
@@ -157,6 +150,48 @@
       card.appendChild(overlay);
       grid.appendChild(card);
     });
+
+    // 使用 IntersectionObserver 实现懒加载
+    lazyLoadImages();
+  }
+
+  // 懒加载函数
+  function lazyLoadImages() {
+    var imgDivs = document.querySelectorAll('[data-bg]');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var imgUrl = el.getAttribute('data-bg');
+            var img = new Image();
+            img.onload = function() {
+              el.style.backgroundImage = "url('" + imgUrl + "')";
+              el.removeAttribute('data-bg');
+              var loader = el.querySelector('.case-loading');
+              if (loader) loader.remove();
+            };
+            img.onerror = function() {
+              el.style.background = 'linear-gradient(180deg, #F5EDE6, #E0D0C0)';
+              el.removeAttribute('data-bg');
+              el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#B89B82;font-size:14px;">暂无图片</div>';
+            };
+            img.src = imgUrl;
+            observer.unobserve(el);
+          }
+        });
+      }, { rootMargin: '200px' });
+      imgDivs.forEach(function(el) { observer.observe(el); });
+    } else {
+      // 回退：直接加载
+      imgDivs.forEach(function(el) {
+        var imgUrl = el.getAttribute('data-bg');
+        el.style.backgroundImage = "url('" + imgUrl + "')";
+        el.removeAttribute('data-bg');
+        var loader = el.querySelector('.case-loading');
+        if (loader) loader.remove();
+      });
+    }
   }
 })();
 
