@@ -71,20 +71,22 @@
   var allCases = [];
   var currentFilter = '全部';
 
-  // 先尝试从JSON文件加载（在线时），失败则使用嵌入数据（离线时）
+  // 优先使用嵌入数据立即渲染（解决国内访问GitHub Pages慢的问题）
+  allCases = (window.SITE_DATA && window.SITE_DATA.cases) || [];
+  renderFilterButtons();
+  renderCases();
+
+  // 后台尝试加载最新JSON数据（如果服务器响应快则更新）
   fetch('data/cases.json')
     .then(function(res) { if (!res.ok) throw new Error('fetch failed'); return res.json(); })
     .then(function(data) {
-      allCases = data.cases || [];
-      renderFilterButtons();
-      renderCases();
+      if (data.cases && data.cases.length > 0) {
+        allCases = data.cases;
+        renderFilterButtons();
+        renderCases();
+      }
     })
-    .catch(function(err) {
-      console.log('使用嵌入数据加载案例');
-      allCases = (window.SITE_DATA && window.SITE_DATA.cases) || [];
-      renderFilterButtons();
-      renderCases();
-    });
+    .catch(function() { /* 保持嵌入数据，不做任何操作 */ });
 
   // 生成分类筛选按钮
   function renderFilterButtons() {
@@ -241,16 +243,19 @@ function renderHotels(hotels) {
   });
 }
 (function() {
+    // 优先使用嵌入数据立即渲染
+  var hotels = (window.SITE_DATA && window.SITE_DATA.hotels) || [];
+  renderHotels(hotels);
+
+  // 后台尝试加载最新JSON数据
   fetch('data/hotels.json')
     .then(function(res) { if (!res.ok) throw new Error('fetch failed'); return res.json(); })
     .then(function(data) {
-      renderHotels(data.hotels || []);
+      if (data.hotels && data.hotels.length > 0) {
+        renderHotels(data.hotels);
+      }
     })
-    .catch(function(err) {
-      console.log('使用嵌入数据加载酒店');
-      var hotels = (window.SITE_DATA && window.SITE_DATA.hotels) || [];
-      renderHotels(hotels);
-    });
+    .catch(function() { /* 保持嵌入数据 */ });
 })();
 
 // ===== Scroll Animations =====
